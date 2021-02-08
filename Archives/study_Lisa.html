@@ -81,19 +81,13 @@
   var prolificID = jsPsych.data.getURLVariable("PROLIFIC_PID");
   if(prolificID == null) {prolificID = "999";}
 
-  var target_gender = jsPsych.randomization.sampleWithoutReplacement(["men", "women"], 1)[0];
+  var target_gender = jsPsych.randomization.sampleWithoutReplacement(["John", "Lisa"], 1)[0];
 
   var stereo_type = jsPsych.randomization.sampleWithoutReplacement(["stereotype", "stereotyping"], 1)[0];
 
   var Attr_target = jsPsych.randomization.sampleWithoutReplacement(["physically unattractive (i.e., relatively low on attractiveness)", "neither physically attractive or unattractive (i.e., relatively average on attractiveness)", "physically attractive (i.e., relatively high on attractiveness)"], 1)[0];
 
-var first_name = undefined;
 
-if (target_gender == "men"){
-    first_name = "John";
-    } else if (target_gender == "women"){
-    first_name = "Lisa";
-  };
     // EXPERIMENT --------------------------------------------------------------------------------------------------------
 
   /* FULL SCREEN MODE */
@@ -198,7 +192,7 @@ var consent = {
     stimulus: function() {
       var html = "";
       html += "<h1>Study of accuracy in person perception</h1>";
-      html += "<p class='justify'>We will ask you to report your impression of <b>"+ target_gender +" who are "+ Attr_target +"</b>.<br><br> ";
+      html += "<p class='justify'>We will ask you to report your impression of people who are <b>"+ Attr_target +"</b>.<br><br> ";
       html += "Your task will be to evaluate this category of person on <b>42 personality traits and personality outcomes. </b><br><br>";
       html += "<p class='justify'><b>Given that this study is on person perception, we are not interested in your tact, politeness, or other ";
       html += "factors that are usually important in everyday life situations. </br>";
@@ -215,10 +209,10 @@ var consent = {
     stimulus: function() {
       var html = "";
       html += "<h1>Study of accuracy in person perception</h1>";
-      html += "<p class='justify'>We will ask you to report your impression of "+ first_name +".<br><br> "
-      html += ""+ first_name +" is a <b>23 years old student. </b>"
-      html += " "+ first_name +" is generally described by others (friends, family or even strangers) as being <b>"+ first_name +"</b>. ";
-      html += "Try to form an impression on "+ first_name +". Your task will be to rate "+ first_name +" on <b>42 personality traits and personality outcomes. </b><br><br>";
+      html += "<p class='justify'>We will ask you to report your impression of "+ target_gender +".<br><br> "
+      html += ""+ target_gender +" is a <b>23 years old student. </b>"
+      html += " "+ target_gender +" is generally described by others (friends, family or even strangers) as being <b>"+ Attr_target +"</b>. ";
+      html += "Try to form an impression on "+ target_gender +". Your task will be to rate "+ target_gender +" on <b>42 personality traits and personality outcomes. </b><br><br>";
       html += "<p class='justify'><b>Given that this study is on person perception, we are not interested in your tact, politeness, or other ";
       html += "factors that are usually important in everyday life situations. </br>";
       html += "It is extremely important that you try to answer <b> as honestly and as spontaneously as possible.</b></br></br>";
@@ -319,7 +313,7 @@ var consent = {
   
   var likert_trial_stereotype = {
         type: 'survey-likert',
-        preamble: "<b>Please evaluate "+ target_gender +" who are "+ Attr_target +"</b>",
+        preamble: "<b>Please evaluate persons who are "+ Attr_target +"</b>",
         questions: [
           {prompt: "", labels: scaleSociable, required: true},
           {prompt: "", labels: scaleFunLoving, required: true},
@@ -423,7 +417,7 @@ var consent = {
 
     var likert_trial_stereotyping = {
         type: 'survey-likert',
-        preamble: "<b>Please evaluate "+ first_name +". "+ first_name +" is a 23 years old student who is generally described as being "+ Attr_target +"</b>",
+        preamble: "<b>Please evaluate "+ target_gender +". "+ target_gender +" is a 23 years old student who is generally described as being "+ Attr_target +"</b>",
         questions: [
           {prompt: "", labels: scaleSociable, required: true},
           {prompt: "", labels: scaleFunLoving, required: true},
@@ -542,55 +536,7 @@ var memory_labels = ["physically unattractive (i.e., low on attractiveness)", "n
         },
       on_finish: function(data) {
           jsPsych.data.addProperties({
-              memory_attr: JSON.parse(data.responses)["Q0"],
-          });
-      },
-  };
-
-  var memory_gender_stereotype = {
-      type: 'survey-multi-choice',
-      questions: [{prompt: "Earlier, we asked you to provide your impressions on... ", options: ['men', 'women'], required: true}],
-      button_label: "Continue",
-      on_load: function() {
-          window.scrollTo(0, 0);
-          $(".jspsych-content").css("margin-top", "200px");
-          $(".jspsych-content").css("max-width", "90%");
-        },
-      on_finish: function(data) {
-          jsPsych.data.addProperties({
-              memory_gender_stereotype: JSON.parse(data.responses)["Q0"],
-          });
-      },
-  };
-
-  var memory_attr_stereotyping = {
-      type: 'survey-multi-choice',
-      questions: [{prompt: "Earlier, we asked you to provide your impressions on a person who is... ", options: memory_labels, required: true}],
-      button_label: "Continue",
-      on_load: function() {
-          window.scrollTo(0, 0);
-          $(".jspsych-content").css("margin-top", "200px");
-          $(".jspsych-content").css("max-width", "90%");
-        },
-      on_finish: function(data) {
-          jsPsych.data.addProperties({
-              memory_attr: JSON.parse(data.responses)["Q0"],
-          });
-      },
-  };
-
-  var memory_gender_stereotyping = {
-      type: 'survey-multi-choice',
-      questions: [{prompt: "Earlier, we asked you to provide your impressions on... ", options: ['John', 'Lisa'], required: true}],
-      button_label: "Continue",
-      on_load: function() {
-          window.scrollTo(0, 0);
-          $(".jspsych-content").css("margin-top", "200px");
-          $(".jspsych-content").css("max-width", "90%");
-        },
-      on_finish: function(data) {
-          jsPsych.data.addProperties({
-              memory_gender_stereotyping: JSON.parse(data.responses)["Q0"],
+              memory_attr_stereotype: JSON.parse(data.responses)["Q0"],
           });
       },
   };
@@ -771,7 +717,6 @@ switch(stereo_type) {
                   jugmentInst_stereotype,
                   likert_trial_stereotype,
                   memory_attr_stereotype,
-                  memory_gender_stereotype,
                   demand_awareness,
                   demand_compliance,
                   age,
@@ -785,8 +730,7 @@ switch(stereo_type) {
     timeline.push(Instr_gene1,
                   jugmentInst_stereotyping,
                   likert_trial_stereotyping,
-                  memory_attr_stereotyping,
-                  memory_gender_stereotyping,
+                  memory_attr_stereotype,
                   demand_awareness,
                   demand_compliance,
                   age,

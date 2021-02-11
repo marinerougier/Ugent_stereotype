@@ -83,7 +83,6 @@
 
   var target_gender = jsPsych.randomization.sampleWithoutReplacement(["men", "women"], 1)[0];
 
-  //var stereo_type = jsPsych.randomization.sampleWithoutReplacement(["stereotype", "stereotyping", "halo"], 1)[0];
   var stereo_type = jsPsych.randomization.sampleWithoutReplacement(["stereotype", "stereotyping"], 1)[0];
 
   var Attr_target = [
@@ -163,12 +162,12 @@
   var stim_med  = undefined;
   var stim_low = undefined;
 
-  if (target_gender == "men"){
+  if (target_gender == "target_male"){
       stim_high = stim_high_male;
       stim_med  = stim_med_male;
       stim_low  = stim_low_male;
       } else if 
-      (target_gender == "women"){
+      (target_gender == "target_female"){
       stim_high = stim_high_fem;
       stim_med  = stim_med_fem;
       stim_low  = stim_low_fem;
@@ -176,6 +175,7 @@
 
   var FaceStims = _.flattenDeep([stim_high, stim_med, stim_low]);
   preloadimages.push(FaceStims);
+  FaceStims = FaceStims.map(function(e) {return {imgHtml: "<img class='imgJudge' src='" + e + "'>"}});
   FaceStims = _.shuffle(FaceStims); // randomize order
 
     // EXPERIMENT --------------------------------------------------------------------------------------------------------
@@ -267,8 +267,7 @@ var consent = {
       html += "<p class='justify'>Psychological studies have shown that <b>people do form impressions of others "
       html += "on the basis of very little information</b>. The purpose of the present study is to have a better understanding ";
       html += "on <i>how</i> these impressions are formed and <i>when</i> they are accurate. </br> </br> ";
-      html += "To do so, we will <b>compare your impressions of others with how these people truly behave in their everyday life</b>.<br><br> "
-      html += "This study is divided into <b>three parts</b>. In each part, you will report your impressions of different people. "
+      html += "To do so, we will <b>compare your impressions of others with how these people truly behave in their everyday life</b>. "
       html += "<p></br>Press <span class='light-keys'><kbd>space</kbd></span> to continue</p>";
       return html;
     },
@@ -283,8 +282,8 @@ var consent = {
     choices: [32],
     stimulus: function() {
       var html = "";
-      html += "<h1>Study of accuracy in person perception (Part 1/3)</h1>";
-      html += "<p class='justify'>To begin with, we will ask you to report your impression of <b>"+ target_gender +" who are "+ Attr_target[0] +"</b>.<br><br> ";
+      html += "<h1>Study of accuracy in person perception</h1>";
+      html += "<p class='justify'>We will ask you to report your impression of <b>"+ target_gender +" who are "+ Attr_target[0] +"</b>.<br><br> ";
       html += "Your task will be to evaluate this category of person on <b>42 personality traits and personality outcomes. </b><br><br>";
       html += "<p class='justify'><b>Given that this study is on person perception, we are not interested in your tact, politeness, or other ";
       html += "factors that are usually important in everyday life situations. </br>";
@@ -300,8 +299,8 @@ var consent = {
     choices: [32],
     stimulus: function() {
       var html = "";
-      html += "<h1>Study of accuracy in person perception (Part 2/3)</h1>";
-      html += "<p class='justify'>Now, we will ask you to report your impression of <b>"+ target_gender +" who are "+ Attr_target[1] +"</b>.<br><br> ";
+      html += "<h1>Study of accuracy in person perception</h1>";
+      html += "<p class='justify'>We will ask you to report your impression of <b>"+ target_gender +" who are "+ Attr_target[1] +"</b>.<br><br> ";
       html += "Your task will be to evaluate this category of person on <b>42 personality traits and personality outcomes. </b><br><br>";
       html += "<p class='justify'><b>Given that this study is on person perception, we are not interested in your tact, politeness, or other ";
       html += "factors that are usually important in everyday life situations. </br>";
@@ -317,8 +316,8 @@ var consent = {
     choices: [32],
     stimulus: function() {
       var html = "";
-      html += "<h1>Study of accuracy in person perception (Part 3/3)</h1>";
-      html += "<p class='justify'>To finish, we will ask you to report your impression of <b>"+ target_gender +" who are "+ Attr_target[2] +"</b>.<br><br> ";
+      html += "<h1>Study of accuracy in person perception</h1>";
+      html += "<p class='justify'>We will ask you to report your impression of <b>"+ target_gender +" who are "+ Attr_target[2] +"</b>.<br><br> ";
       html += "Your task will be to evaluate this category of person on <b>42 personality traits and personality outcomes. </b><br><br>";
       html += "<p class='justify'><b>Given that this study is on person perception, we are not interested in your tact, politeness, or other ";
       html += "factors that are usually important in everyday life situations. </br>";
@@ -335,8 +334,8 @@ var consent = {
     choices: [32],
     stimulus: function() {
       var html = "";
-      html += "<h1>Study of accuracy in person perception (Part 1/3)</h1>";
-      html += "<p class='justify'>To begin with, we will ask you to report your impression of "+ first_name[0] +".<br><br> "
+      html += "<h1>Study of accuracy in person perception</h1>";
+      html += "<p class='justify'>We will ask you to report your impression of "+ first_name[0] +".<br><br> "
       html += ""+ first_name[0] +" is a <b>23 years old student. </b>"
       html += " "+ first_name[0] +" is generally described by others (friends, family or even strangers) as being <b>"+ Attr_target[0] +"</b>. ";
       html += "Try to form an impression on "+ first_name[0] +". Your task will be to rate "+ first_name[0] +" on <b>42 personality traits and personality outcomes. </b><br><br>";
@@ -354,9 +353,9 @@ var consent = {
     choices: [32],
     stimulus: function() {
       var html = "";
-      html += "<h1>Study of accuracy in person perception (Part 2/3)</h1>";
-      html += "<p class='justify'>Now, we will ask you to report your impression of "+ first_name[1] +".<br><br> "
-      html += ""+ first_name[1] +" is also a <b>23 years old student. </b>"
+      html += "<h1>Study of accuracy in person perception</h1>";
+      html += "<p class='justify'>We will ask you to report your impression of "+ first_name[1] +".<br><br> "
+      html += ""+ first_name[1] +" is a <b>23 years old student. </b>"
       html += " "+ first_name[1] +" is generally described by others (friends, family or even strangers) as being <b>"+ Attr_target[1] +"</b>. ";
       html += "Try to form an impression on "+ first_name[1] +". Your task will be to rate "+ first_name[1] +" on <b>42 personality traits and personality outcomes. </b><br><br>";
       html += "<p class='justify'><b>Given that this study is on person perception, we are not interested in your tact, politeness, or other ";
@@ -373,9 +372,9 @@ var consent = {
     choices: [32],
     stimulus: function() {
       var html = "";
-      html += "<h1>Study of accuracy in person perception (Part 3/3)</h1>";
-      html += "<p class='justify'>To finish, we will ask you to report your impression of "+ first_name[2] +".<br><br> "
-      html += "Again, "+ first_name[2] +" is a <b>23 years old student. </b>"
+      html += "<h1>Study of accuracy in person perception</h1>";
+      html += "<p class='justify'>We will ask you to report your impression of "+ first_name[2] +".<br><br> "
+      html += ""+ first_name[2] +" is a <b>23 years old student. </b>"
       html += " "+ first_name[2] +" is generally described by others (friends, family or even strangers) as being <b>"+ Attr_target[2] +"</b>. ";
       html += "Try to form an impression on "+ first_name[2] +". Your task will be to rate "+ first_name[2] +" on <b>42 personality traits and personality outcomes. </b><br><br>";
       html += "<p class='justify'><b>Given that this study is on person perception, we are not interested in your tact, politeness, or other ";
@@ -386,69 +385,6 @@ var consent = {
     },
   };
 
-  // Halo condition
-  /*
-  var jugmentInst_halo_0 = {
-    type: "html-keyboard-response",
-    post_trial_gap: 300,
-    choices: [32],
-    stimulus: function() {
-      var html = "";
-      html += "<h1>Study of accuracy in person perception (Part 1/3)</h1>";
-      html += "<p class='justify'>To begin with, we will ask you to report your impression of this person who is a <b>23 years old student</b>: <center><img class='imgInstr' src='"+ FaceStims[0] +"'><br><br> "
-      html += "<p class='justify'>Try to form an impression. Your task will be to rate this person on <b>42 personality traits and personality outcomes. </b><br><br>";
-      html += "<p class='justify'><b>Given that this study is on person perception, we are not interested in your tact, politeness, or other ";
-      html += "factors that are usually important in everyday life situations. </br>";
-      html += "It is extremely important that you try to answer <b> as honestly and as spontaneously as possible.</b></br></br>";
-      html += "<p></br>Press <span class='light-keys'><kbd>space</kbd></span> to begin</p>";
-      return html;
-    },
-  };
-
-  var jugmentInst_halo_1 = {
-    type: "html-keyboard-response",
-    post_trial_gap: 300,
-    choices: [32],
-    stimulus: function() {
-      var html = "";
-      html += "<h1>Study of accuracy in person perception (Part 2/3)</h1>";
-      html += "<p class='justify'>Now, we will ask you to report your impression of this person who is also a <b>23 years old student</b>: <center><img class='imgInstr' src='"+ FaceStims[1] +"'><br><br> "
-      html += "<p class='justify'>Try to form an impression. Your task will be to rate this person on <b>42 personality traits and personality outcomes. </b><br><br>";
-      html += "<p class='justify'><b>Given that this study is on person perception, we are not interested in your tact, politeness, or other ";
-      html += "factors that are usually important in everyday life situations. </br>";
-      html += "It is extremely important that you try to answer <b> as honestly and as spontaneously as possible.</b></br></br>";
-      html += "<p></br>Press <span class='light-keys'><kbd>space</kbd></span> to begin</p>";
-      return html;
-    },
-    on_load: function() {
-        window.scrollTo(0, 0);
-        $(".jspsych-content").css("margin-top", "100px");
-        $(".jspsych-content").css("max-width", "90%");
-      },
-  };
-
-    var jugmentInst_halo_2 = {
-    type: "html-keyboard-response",
-    post_trial_gap: 300,
-    choices: [32],
-    stimulus: function() {
-      var html = "";
-      html += "<h1>Study of accuracy in person perception (Part 3/3)</h1>";
-      html += "<p class='justify'>To finish, we will ask you to report your impression of this person who is, again, a <b>23 years old student</b>: <center><img class='imgInstr' src='"+ FaceStims[2] +"'><br><br> "
-      html += "<p class='justify'>Try to form an impression. Your task will be to rate this person on <b>42 personality traits and personality outcomes. </b><br><br>";
-      html += "<p class='justify'><b>Given that this study is on person perception, we are not interested in your tact, politeness, or other ";
-      html += "factors that are usually important in everyday life situations. </br>";
-      html += "It is extremely important that you try to answer <b> as honestly and as spontaneously as possible.</b></br></br>";
-      html += "<p></br>Press <span class='light-keys'><kbd>space</kbd></span> to begin</p>";
-      return html;
-    },
-    on_load: function() {
-        window.scrollTo(0, 0);
-        $(".jspsych-content").css("margin-top", "100px");
-        $(".jspsych-content").css("max-width", "90%");
-      },
-  };
-*/
    // Judgments on various dimensions
 
   // Social Desirability index (from Dion et al. 1972): 
@@ -548,6 +484,7 @@ var consent = {
         questions: [
           {prompt: "", labels: scaleSociable, required: true},
           {prompt: "", labels: scaleFunLoving, required: true},
+          /*
           {prompt: "", labels: scaleLikable, required: true},
           {prompt: "", labels: scalePopular, required: true},
           {prompt: "", labels: scaleIntelligent, required: true},
@@ -588,12 +525,13 @@ var consent = {
           {prompt: "", labels: scalePompous, required: true},
           {prompt: "", labels: scalePrudish, required: true},
           {prompt: "", labels: scaleBoastfull, required: true},
+          */
         ],
         randomize_question_order: true, 
         button_label: 'Continue',
         on_load: function() {
           window.scrollTo(0, 0);
-         $(".jspsych-content").css("margin-top", "100px");
+          $(".jspsych-content").css("margin-top", "100px");
         },
         on_finish: function(data) {
           data.task = "rating";
@@ -641,7 +579,7 @@ var consent = {
           data.prudish       = parsed_response.Q40 * 10;
           data.boastfull     = parsed_response.Q41 * 10;
           data.att_target    = Attr_target[0];
-          data.stim_name    = "NA";
+          data.first_name    = "NA";
         },
     };
 
@@ -651,6 +589,7 @@ var rating_stereotype_1 = {
         questions: [
           {prompt: "", labels: scaleSociable, required: true},
           {prompt: "", labels: scaleFunLoving, required: true},
+          /*
           {prompt: "", labels: scaleLikable, required: true},
           {prompt: "", labels: scalePopular, required: true},
           {prompt: "", labels: scaleIntelligent, required: true},
@@ -691,6 +630,7 @@ var rating_stereotype_1 = {
           {prompt: "", labels: scalePompous, required: true},
           {prompt: "", labels: scalePrudish, required: true},
           {prompt: "", labels: scaleBoastfull, required: true},
+          */
         ],
         randomize_question_order: true, 
         button_label: 'Continue',
@@ -744,7 +684,7 @@ var rating_stereotype_1 = {
           data.prudish       = parsed_response.Q40 * 10;
           data.boastfull     = parsed_response.Q41 * 10;
           data.att_target    = Attr_target[1];
-          data.stim_name    = "NA";
+          data.first_name    = "NA";
         },
     };
 
@@ -754,6 +694,7 @@ var rating_stereotype_1 = {
         questions: [
           {prompt: "", labels: scaleSociable, required: true},
           {prompt: "", labels: scaleFunLoving, required: true},
+          /*
           {prompt: "", labels: scaleLikable, required: true},
           {prompt: "", labels: scalePopular, required: true},
           {prompt: "", labels: scaleIntelligent, required: true},
@@ -794,6 +735,7 @@ var rating_stereotype_1 = {
           {prompt: "", labels: scalePompous, required: true},
           {prompt: "", labels: scalePrudish, required: true},
           {prompt: "", labels: scaleBoastfull, required: true},
+          */
         ],
         randomize_question_order: true, 
         button_label: 'Continue',
@@ -847,7 +789,7 @@ var rating_stereotype_1 = {
           data.prudish       = parsed_response.Q40 * 10;
           data.boastfull     = parsed_response.Q41 * 10;
           data.att_target    = Attr_target[2];
-          data.stim_name    = "NA";
+          data.first_name    = "NA";
         },
     };  
 
@@ -860,6 +802,7 @@ var rating_stereotype_1 = {
         questions: [
           {prompt: "", labels: scaleSociable, required: true},
           {prompt: "", labels: scaleFunLoving, required: true},
+          /*
           {prompt: "", labels: scaleLikable, required: true},
           {prompt: "", labels: scalePopular, required: true},
           {prompt: "", labels: scaleIntelligent, required: true},
@@ -900,6 +843,7 @@ var rating_stereotype_1 = {
           {prompt: "", labels: scalePompous, required: true},
           {prompt: "", labels: scalePrudish, required: true},
           {prompt: "", labels: scaleBoastfull, required: true},
+          */
         ],
         randomize_question_order: true, 
         button_label: 'Continue',
@@ -953,7 +897,7 @@ var rating_stereotype_1 = {
           data.prudish       = parsed_response.Q40 * 10;
           data.boastfull     = parsed_response.Q41 * 10;
           data.att_target    = Attr_target[0];
-          data.stim_name    = first_name[0];
+          data.first_name    = first_name[0];
         },
     };
 
@@ -963,6 +907,7 @@ var rating_stereotype_1 = {
         questions: [
           {prompt: "", labels: scaleSociable, required: true},
           {prompt: "", labels: scaleFunLoving, required: true},
+          /*
           {prompt: "", labels: scaleLikable, required: true},
           {prompt: "", labels: scalePopular, required: true},
           {prompt: "", labels: scaleIntelligent, required: true},
@@ -1003,6 +948,7 @@ var rating_stereotype_1 = {
           {prompt: "", labels: scalePompous, required: true},
           {prompt: "", labels: scalePrudish, required: true},
           {prompt: "", labels: scaleBoastfull, required: true},
+          */
         ],
         randomize_question_order: true, 
         button_label: 'Continue',
@@ -1056,7 +1002,7 @@ var rating_stereotype_1 = {
           data.prudish       = parsed_response.Q40 * 10;
           data.boastfull     = parsed_response.Q41 * 10;
           data.att_target    = Attr_target[1];
-          data.stim_name    = first_name[1];
+          data.first_name    = first_name[1];
         },
     };
 
@@ -1067,6 +1013,7 @@ var rating_stereotype_1 = {
         questions: [
           {prompt: "", labels: scaleSociable, required: true},
           {prompt: "", labels: scaleFunLoving, required: true},
+          /*
           {prompt: "", labels: scaleLikable, required: true},
           {prompt: "", labels: scalePopular, required: true},
           {prompt: "", labels: scaleIntelligent, required: true},
@@ -1107,6 +1054,7 @@ var rating_stereotype_1 = {
           {prompt: "", labels: scalePompous, required: true},
           {prompt: "", labels: scalePrudish, required: true},
           {prompt: "", labels: scaleBoastfull, required: true},
+          */
         ],
         randomize_question_order: true, 
         button_label: 'Continue',
@@ -1160,382 +1108,11 @@ var rating_stereotype_1 = {
           data.prudish       = parsed_response.Q40 * 10;
           data.boastfull     = parsed_response.Q41 * 10;
           data.att_target    = Attr_target[2];
-          data.stim_name    = first_name[2];
+          data.first_name    = first_name[2];
         },
     };
 
-// Halo
-/*
-var rating_halo_0 = {
-        type: 'survey-likert',
-        preamble: "<b>Please evaluate this person: <img class='imgBack' src='Stim_selected/Fond_blanc.jpeg'><img class='imgJudge' src='"+ FaceStims[0] +"'></b>",
-        questions: [
-          {prompt: "", labels: scaleSociable, required: true},
-          {prompt: "", labels: scaleFunLoving, required: true},
-          {prompt: "", labels: scaleLikable, required: true},
-          {prompt: "", labels: scalePopular, required: true},
-          {prompt: "", labels: scaleIntelligent, required: true},
-          {prompt: "", labels: scaleSkillful, required: true},
-          {prompt: "", labels: scaleRational, required: true},
-          {prompt: "", labels: scaleScientific, required: true},
-          {prompt: "", labels: scaleAmbitious, required: true},
-          {prompt: "", labels: scaleHardWorking, required: true},
-          {prompt: "", labels: scaleGrade, required: true},
-          {prompt: "", labels: scaleSuccess, required: true},
-          {prompt: "", labels: scaleSensitive, required: true},
-          {prompt: "", labels: scaleEmpathic, required: true},
-          {prompt: "", labels: scaleCompassionate, required: true},
-          {prompt: "", labels: scaleGenerous, required: true},
-          {prompt: "", labels: scaleModest, required: true},
-          {prompt: "", labels: scaleEgoistic, required: true},
-          {prompt: "", labels: scaleTrustworthy, required: true},
-          {prompt: "", labels: scaleHonest, required: true},
-          {prompt: "", labels: scaleFaithful, required: true},
-          {prompt: "", labels: scaleNormal, required: true},
-          {prompt: "", labels: scaleWellAdjusted, required: true},
-          {prompt: "", labels: scaleSatisfied, required: true},
-          {prompt: "", labels: scaleHappy, required: true},
-          {prompt: "", labels: scaleConfident, required: true},
-          {prompt: "", labels: scaleSelfRegard, required: true},
-          {prompt: "", labels: scaleMature, required: true},
-          {prompt: "", labels: scaleHealthy, required: true},
-          {prompt: "", labels: scaleStrong, required: true},
-          {prompt: "", labels: scaleSelfAssertive, required: true},
-          {prompt: "", labels: scaleDominant, required: true},
-          {prompt: "", labels: scaleLeader, required: true},
-          {prompt: "", labels: scaleVain, required: true},
-          {prompt: "", labels: scaleElitist, required: true},
-          {prompt: "", labels: scaleSnobbish, required: true},
-          {prompt: "", labels: scaleShallow, required: true},
-          {prompt: "", labels: scaleHumble, required: true},
-          {prompt: "", labels: scaleMaterialistic, required: true},
-          {prompt: "", labels: scalePompous, required: true},
-          {prompt: "", labels: scalePrudish, required: true},
-          {prompt: "", labels: scaleBoastfull, required: true},
-        ],
-        randomize_question_order: true, 
-        button_label: 'Continue',
-        on_load: function() {
-          window.scrollTo(0, 0);
-         $(".jspsych-content").css("margin-top", "430px");
-        },
-        on_finish: function(data) {
-          data.task = "rating";
-          var parsed_response  = JSON.parse(data.responses);
-          data.sociable      = parsed_response.Q0 * 10;
-          data.funloving     = parsed_response.Q1 * 10;
-          data.likable       = parsed_response.Q2 * 10;
-          data.popular       = parsed_response.Q3 * 10;
-          data.intelligent   = parsed_response.Q4 * 10;
-          data.skillful      = parsed_response.Q5 * 10;
-          data.rational      = parsed_response.Q6 * 10;
-          data.scientific    = parsed_response.Q7 * 10;
-          data.ambitious     = parsed_response.Q8 * 10;
-          data.hardworking   = parsed_response.Q9 * 10;
-          data.grade         = parsed_response.Q10 * 10;
-          data.success       = parsed_response.Q11 * 10;
-          data.sensitive     = parsed_response.Q12 * 10;
-          data.empathic      = parsed_response.Q13 * 10;
-          data.compassionate = parsed_response.Q14 * 10;
-          data.generous      = parsed_response.Q15 * 10;
-          data.modest        = parsed_response.Q16 * 10;
-          data.egoistic      = parsed_response.Q17 * 10;
-          data.trustworthy   = parsed_response.Q18 * 10;
-          data.honest        = parsed_response.Q19 * 10;
-          data.faithful      = parsed_response.Q20 * 10;
-          data.normal        = parsed_response.Q21 * 10;
-          data.welladjusted  = parsed_response.Q22 * 10;
-          data.satisfied     = parsed_response.Q23 * 10;
-          data.happy         = parsed_response.Q24 * 10;
-          data.confident     = parsed_response.Q25 * 10;
-          data.selfregard    = parsed_response.Q26 * 10;
-          data.mature        = parsed_response.Q27 * 10;
-          data.healthy       = parsed_response.Q28 * 10;
-          data.strong        = parsed_response.Q29 * 10;
-          data.selfassertive = parsed_response.Q30 * 10;
-          data.dominant      = parsed_response.Q31 * 10;
-          data.leader        = parsed_response.Q32 * 10;
-          data.vain          = parsed_response.Q33 * 10;
-          data.elitist       = parsed_response.Q34 * 10;
-          data.snobbish      = parsed_response.Q35 * 10;
-          data.shallow       = parsed_response.Q36 * 10;
-          data.humble        = parsed_response.Q37 * 10;
-          data.materialistic = parsed_response.Q38 * 10;
-          data.pompous       = parsed_response.Q39 * 10;
-          data.prudish       = parsed_response.Q40 * 10;
-          data.boastfull     = parsed_response.Q41 * 10;
-          data.att_target    = "NA";
-          data.stim_name    = FaceStims[0];
-        },
-    };
 
-var rating_halo_1 = {
-        type: 'survey-likert',
-        preamble: "<b>Please evaluate this person: <img class='imgBack' src='Stim_selected/Fond_blanc.jpeg'><img class='imgJudge' src='"+ FaceStims[1] +"'></b>",
-        questions: [
-          {prompt: "", labels: scaleSociable, required: true},
-          {prompt: "", labels: scaleFunLoving, required: true},
-          {prompt: "", labels: scaleLikable, required: true},
-          {prompt: "", labels: scalePopular, required: true},
-          {prompt: "", labels: scaleIntelligent, required: true},
-          {prompt: "", labels: scaleSkillful, required: true},
-          {prompt: "", labels: scaleRational, required: true},
-          {prompt: "", labels: scaleScientific, required: true},
-          {prompt: "", labels: scaleAmbitious, required: true},
-          {prompt: "", labels: scaleHardWorking, required: true},
-          {prompt: "", labels: scaleGrade, required: true},
-          {prompt: "", labels: scaleSuccess, required: true},
-          {prompt: "", labels: scaleSensitive, required: true},
-          {prompt: "", labels: scaleEmpathic, required: true},
-          {prompt: "", labels: scaleCompassionate, required: true},
-          {prompt: "", labels: scaleGenerous, required: true},
-          {prompt: "", labels: scaleModest, required: true},
-          {prompt: "", labels: scaleEgoistic, required: true},
-          {prompt: "", labels: scaleTrustworthy, required: true},
-          {prompt: "", labels: scaleHonest, required: true},
-          {prompt: "", labels: scaleFaithful, required: true},
-          {prompt: "", labels: scaleNormal, required: true},
-          {prompt: "", labels: scaleWellAdjusted, required: true},
-          {prompt: "", labels: scaleSatisfied, required: true},
-          {prompt: "", labels: scaleHappy, required: true},
-          {prompt: "", labels: scaleConfident, required: true},
-          {prompt: "", labels: scaleSelfRegard, required: true},
-          {prompt: "", labels: scaleMature, required: true},
-          {prompt: "", labels: scaleHealthy, required: true},
-          {prompt: "", labels: scaleStrong, required: true},
-          {prompt: "", labels: scaleSelfAssertive, required: true},
-          {prompt: "", labels: scaleDominant, required: true},
-          {prompt: "", labels: scaleLeader, required: true},
-          {prompt: "", labels: scaleVain, required: true},
-          {prompt: "", labels: scaleElitist, required: true},
-          {prompt: "", labels: scaleSnobbish, required: true},
-          {prompt: "", labels: scaleShallow, required: true},
-          {prompt: "", labels: scaleHumble, required: true},
-          {prompt: "", labels: scaleMaterialistic, required: true},
-          {prompt: "", labels: scalePompous, required: true},
-          {prompt: "", labels: scalePrudish, required: true},
-          {prompt: "", labels: scaleBoastfull, required: true},
-        ],
-        randomize_question_order: true, 
-        button_label: 'Continue',
-        on_load: function() {
-          window.scrollTo(0, 0);
-          $(".jspsych-content").css("margin-top", "430px");
-        },
-        on_finish: function(data) {
-          data.task = "rating";
-          var parsed_response  = JSON.parse(data.responses);
-          data.sociable      = parsed_response.Q0 * 10;
-          data.funloving     = parsed_response.Q1 * 10;
-          data.likable       = parsed_response.Q2 * 10;
-          data.popular       = parsed_response.Q3 * 10;
-          data.intelligent   = parsed_response.Q4 * 10;
-          data.skillful      = parsed_response.Q5 * 10;
-          data.rational      = parsed_response.Q6 * 10;
-          data.scientific    = parsed_response.Q7 * 10;
-          data.ambitious     = parsed_response.Q8 * 10;
-          data.hardworking   = parsed_response.Q9 * 10;
-          data.grade         = parsed_response.Q10 * 10;
-          data.success       = parsed_response.Q11 * 10;
-          data.sensitive     = parsed_response.Q12 * 10;
-          data.empathic      = parsed_response.Q13 * 10;
-          data.compassionate = parsed_response.Q14 * 10;
-          data.generous      = parsed_response.Q15 * 10;
-          data.modest        = parsed_response.Q16 * 10;
-          data.egoistic      = parsed_response.Q17 * 10;
-          data.trustworthy   = parsed_response.Q18 * 10;
-          data.honest        = parsed_response.Q19 * 10;
-          data.faithful      = parsed_response.Q20 * 10;
-          data.normal        = parsed_response.Q21 * 10;
-          data.welladjusted  = parsed_response.Q22 * 10;
-          data.satisfied     = parsed_response.Q23 * 10;
-          data.happy         = parsed_response.Q24 * 10;
-          data.confident     = parsed_response.Q25 * 10;
-          data.selfregard    = parsed_response.Q26 * 10;
-          data.mature        = parsed_response.Q27 * 10;
-          data.healthy       = parsed_response.Q28 * 10;
-          data.strong        = parsed_response.Q29 * 10;
-          data.selfassertive = parsed_response.Q30 * 10;
-          data.dominant      = parsed_response.Q31 * 10;
-          data.leader        = parsed_response.Q32 * 10;
-          data.vain          = parsed_response.Q33 * 10;
-          data.elitist       = parsed_response.Q34 * 10;
-          data.snobbish      = parsed_response.Q35 * 10;
-          data.shallow       = parsed_response.Q36 * 10;
-          data.humble        = parsed_response.Q37 * 10;
-          data.materialistic = parsed_response.Q38 * 10;
-          data.pompous       = parsed_response.Q39 * 10;
-          data.prudish       = parsed_response.Q40 * 10;
-          data.boastfull     = parsed_response.Q41 * 10;
-          data.att_target    = "NA";
-          data.stim_name    = FaceStims[1];
-        },
-    };
-
-var rating_halo_2 = {
-        type: 'survey-likert',
-        preamble: "<b>Please evaluate this person: <img class='imgBack' src='Stim_selected/Fond_blanc.jpeg'><img class='imgJudge' src='"+ FaceStims[2] +"'></b>",
-        questions: [
-          {prompt: "", labels: scaleSociable, required: true},
-          {prompt: "", labels: scaleFunLoving, required: true},
-          {prompt: "", labels: scaleLikable, required: true},
-          {prompt: "", labels: scalePopular, required: true},
-          {prompt: "", labels: scaleIntelligent, required: true},
-          {prompt: "", labels: scaleSkillful, required: true},
-          {prompt: "", labels: scaleRational, required: true},
-          {prompt: "", labels: scaleScientific, required: true},
-          {prompt: "", labels: scaleAmbitious, required: true},
-          {prompt: "", labels: scaleHardWorking, required: true},
-          {prompt: "", labels: scaleGrade, required: true},
-          {prompt: "", labels: scaleSuccess, required: true},
-          {prompt: "", labels: scaleSensitive, required: true},
-          {prompt: "", labels: scaleEmpathic, required: true},
-          {prompt: "", labels: scaleCompassionate, required: true},
-          {prompt: "", labels: scaleGenerous, required: true},
-          {prompt: "", labels: scaleModest, required: true},
-          {prompt: "", labels: scaleEgoistic, required: true},
-          {prompt: "", labels: scaleTrustworthy, required: true},
-          {prompt: "", labels: scaleHonest, required: true},
-          {prompt: "", labels: scaleFaithful, required: true},
-          {prompt: "", labels: scaleNormal, required: true},
-          {prompt: "", labels: scaleWellAdjusted, required: true},
-          {prompt: "", labels: scaleSatisfied, required: true},
-          {prompt: "", labels: scaleHappy, required: true},
-          {prompt: "", labels: scaleConfident, required: true},
-          {prompt: "", labels: scaleSelfRegard, required: true},
-          {prompt: "", labels: scaleMature, required: true},
-          {prompt: "", labels: scaleHealthy, required: true},
-          {prompt: "", labels: scaleStrong, required: true},
-          {prompt: "", labels: scaleSelfAssertive, required: true},
-          {prompt: "", labels: scaleDominant, required: true},
-          {prompt: "", labels: scaleLeader, required: true},
-          {prompt: "", labels: scaleVain, required: true},
-          {prompt: "", labels: scaleElitist, required: true},
-          {prompt: "", labels: scaleSnobbish, required: true},
-          {prompt: "", labels: scaleShallow, required: true},
-          {prompt: "", labels: scaleHumble, required: true},
-          {prompt: "", labels: scaleMaterialistic, required: true},
-          {prompt: "", labels: scalePompous, required: true},
-          {prompt: "", labels: scalePrudish, required: true},
-          {prompt: "", labels: scaleBoastfull, required: true},
-        ],
-        randomize_question_order: true, 
-        button_label: 'Continue',
-        on_load: function() {
-          window.scrollTo(0, 0);
-          $(".jspsych-content").css("margin-top", "430px");
-        },
-        on_finish: function(data) {
-          data.task = "rating";
-          var parsed_response  = JSON.parse(data.responses);
-          data.sociable      = parsed_response.Q0 * 10;
-          data.funloving     = parsed_response.Q1 * 10;
-          data.likable       = parsed_response.Q2 * 10;
-          data.popular       = parsed_response.Q3 * 10;
-          data.intelligent   = parsed_response.Q4 * 10;
-          data.skillful      = parsed_response.Q5 * 10;
-          data.rational      = parsed_response.Q6 * 10;
-          data.scientific    = parsed_response.Q7 * 10;
-          data.ambitious     = parsed_response.Q8 * 10;
-          data.hardworking   = parsed_response.Q9 * 10;
-          data.grade         = parsed_response.Q10 * 10;
-          data.success       = parsed_response.Q11 * 10;
-          data.sensitive     = parsed_response.Q12 * 10;
-          data.empathic      = parsed_response.Q13 * 10;
-          data.compassionate = parsed_response.Q14 * 10;
-          data.generous      = parsed_response.Q15 * 10;
-          data.modest        = parsed_response.Q16 * 10;
-          data.egoistic      = parsed_response.Q17 * 10;
-          data.trustworthy   = parsed_response.Q18 * 10;
-          data.honest        = parsed_response.Q19 * 10;
-          data.faithful      = parsed_response.Q20 * 10;
-          data.normal        = parsed_response.Q21 * 10;
-          data.welladjusted  = parsed_response.Q22 * 10;
-          data.satisfied     = parsed_response.Q23 * 10;
-          data.happy         = parsed_response.Q24 * 10;
-          data.confident     = parsed_response.Q25 * 10;
-          data.selfregard    = parsed_response.Q26 * 10;
-          data.mature        = parsed_response.Q27 * 10;
-          data.healthy       = parsed_response.Q28 * 10;
-          data.strong        = parsed_response.Q29 * 10;
-          data.selfassertive = parsed_response.Q30 * 10;
-          data.dominant      = parsed_response.Q31 * 10;
-          data.leader        = parsed_response.Q32 * 10;
-          data.vain          = parsed_response.Q33 * 10;
-          data.elitist       = parsed_response.Q34 * 10;
-          data.snobbish      = parsed_response.Q35 * 10;
-          data.shallow       = parsed_response.Q36 * 10;
-          data.humble        = parsed_response.Q37 * 10;
-          data.materialistic = parsed_response.Q38 * 10;
-          data.pompous       = parsed_response.Q39 * 10;
-          data.prudish       = parsed_response.Q40 * 10;
-          data.boastfull     = parsed_response.Q41 * 10;
-          data.att_target    = "NA";
-          data.stim_name   = FaceStims[2];
-        },
-    };
-*/
-
-// Judgments on attractiveness
-
- /* Attractiveness INSTRUCTIONS */
-/*
-  var attractiveness_instr = {
-    type: "html-keyboard-response",
-    post_trial_gap: 300,
-    choices: [32],
-    stimulus: function() {
-      var html = "";
-      html += "<h1>Study of accuracy in person perception</h1>";
-      html += "<p class='justify'>Now, we will ask you to rate the faces that you previously saw on their <b>physical attractiveness</b>.<br><br> ";
-      html += "<b>Again, remember that we are not interested in your tact, politeness, or other ";
-      html += "factors that are usually important in everyday life situations. </br>";
-      html += "It is extremely important that you try to answer <b> as honestly and as accurately as possible.</b></br></br>";
-      html += "<p></br>Press <span class='light-keys'><kbd>space</kbd></span> to begin</p>";
-      return html;
-    },
-      on_load: function() {
-          window.scrollTo(0, 0);
-          $(".jspsych-content").css("margin-top", "200px");
-          $(".jspsych-content").css("max-width", "90%");
-        },
-  };
-
-var scaleAttractiveness = ["-3</br>Extremely unattractive", "-2", "-1", "0", "1", "2", "3</br>Extremely attractive"];
-
-var judgments_attractiveness = [];
-FaceStims.map(function(ciImg){
-    var likert_trial = {
-        type: 'survey-likert',
-        preamble: "<img class='imgBack' src='Stim_selected/Fond_blanc.jpeg'>"+ "<img class='imgJudge' src='" + ciImg + "'>",
-        questions: [
-          {prompt: "", labels: scaleAttractiveness, required: true},
-        ],
-        randomize_question_order: true, /// !!!! does not work
-        button_label: 'Continue',
-        on_load: function() {
-          window.scrollTo(0, 0);
-          $(".jspsych-content").css("max-width", "100%");
-          $(".jspsych-content").css("margin-top", "430px");
-          $(".jspsych-survey-likert-statement").css("margin", "0px");
-          $(".jspsych-survey-likert-statement").css("padding", "0px");
-          $(".jspsych-survey-likert-opts").css("padding", "0 0 10px");
-          $("#jspsych-survey-likert-next").css("margin-top", "10px");
-          $("#jspsych-survey-likert-form").css("width", "800px");
-          $("li").css("width", "9%");
-        //   $("li:first-of-type").css("width", "110px");
-        //   $("li:last-of-type").css("width", "110px");
-        },
-        on_finish: function(data) {
-          data.task = "attractiveness";
-          var parsed_response  = JSON.parse(data.responses);
-          data.itemMemory    = parsed_response.Q0;
-          data.stim_name    = ciImg;
-        },
-    };
-    judgments_attractiveness.push(likert_trial);
-  });
-*/
 /* Demand questions */
 
   var demand_awareness = {
@@ -1745,27 +1322,7 @@ switch(stereo_type) {
     break;
 }
 
- /*
-    case "halo":
-    timeline.push(Instr_gene1,
-                  jugmentInst_halo_0,
-                  rating_halo_0,
-                  jugmentInst_halo_1,
-                  rating_halo_1,
-                  jugmentInst_halo_2,
-                  rating_halo_2,
-                  attractiveness_instr,
-                  judgments_attractiveness,
-                  demand_awareness,
-                  demand_compliance,
-                  age,
-                  gender,
-                  language,
-                  Prolific_reported,
-                  comments,
-                  exitFullscreen);
-    break;
-*/
+
   timeline = _.flattenDeep(timeline); // do not remove this!
   preloadimages = _.flattenDeep(preloadimages);
 
@@ -1803,7 +1360,6 @@ switch(stereo_type) {
       });
 
       var datarating = data.filter({ task: 'rating' }).csv();
-      //var dataattractiveness = data.filter({ task: 'attractiveness' }).csv();
 
       /* Send data to Firebase */
       database
@@ -1814,13 +1370,6 @@ switch(stereo_type) {
               $("#jspsych-content").html(debrief);
               //setTimeout(jsPsych.data.displayData, 5000);
               });
- /*       
-      database
-        .ref("Attractiveness_stereo/" + jspsych_id + "/")
-        .update({ dataattractiveness })
-        .then(function () {
-        });
-*/
     }
   });
 </script>

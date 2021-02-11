@@ -84,7 +84,7 @@
   var target_gender = jsPsych.randomization.sampleWithoutReplacement(["men", "women"], 1)[0];
 
   //var stereo_type = jsPsych.randomization.sampleWithoutReplacement(["stereotype", "stereotyping", "halo"], 1)[0];
-  var stereo_type = jsPsych.randomization.sampleWithoutReplacement(["stereotype", "stereotyping"], 1)[0];
+  var stereo_type = jsPsych.randomization.sampleWithoutReplacement(["halo"], 1)[0];
 
   var Attr_target = [
   "physically unattractive (i.e., relatively low on attractiveness)", 
@@ -386,8 +386,7 @@ var consent = {
     },
   };
 
-  // Halo condition
-  /*
+  // Halo condition 
   var jugmentInst_halo_0 = {
     type: "html-keyboard-response",
     post_trial_gap: 300,
@@ -448,7 +447,7 @@ var consent = {
         $(".jspsych-content").css("max-width", "90%");
       },
   };
-*/
+
    // Judgments on various dimensions
 
   // Social Desirability index (from Dion et al. 1972): 
@@ -1164,8 +1163,7 @@ var rating_stereotype_1 = {
         },
     };
 
-// Halo
-/*
+// Halo 
 var rating_halo_0 = {
         type: 'survey-likert',
         preamble: "<b>Please evaluate this person: <img class='imgBack' src='Stim_selected/Fond_blanc.jpeg'><img class='imgJudge' src='"+ FaceStims[0] +"'></b>",
@@ -1474,12 +1472,11 @@ var rating_halo_2 = {
           data.stim_name   = FaceStims[2];
         },
     };
-*/
 
 // Judgments on attractiveness
 
  /* Attractiveness INSTRUCTIONS */
-/*
+
   var attractiveness_instr = {
     type: "html-keyboard-response",
     post_trial_gap: 300,
@@ -1535,7 +1532,7 @@ FaceStims.map(function(ciImg){
     };
     judgments_attractiveness.push(likert_trial);
   });
-*/
+
 /* Demand questions */
 
   var demand_awareness = {
@@ -1743,9 +1740,6 @@ switch(stereo_type) {
                   comments,
                   exitFullscreen);
     break;
-}
-
- /*
     case "halo":
     timeline.push(Instr_gene1,
                   jugmentInst_halo_0,
@@ -1765,7 +1759,9 @@ switch(stereo_type) {
                   comments,
                   exitFullscreen);
     break;
-*/
+}
+
+
   timeline = _.flattenDeep(timeline); // do not remove this!
   preloadimages = _.flattenDeep(preloadimages);
 
@@ -1803,24 +1799,23 @@ switch(stereo_type) {
       });
 
       var datarating = data.filter({ task: 'rating' }).csv();
-      //var dataattractiveness = data.filter({ task: 'attractiveness' }).csv();
+      var dataattractiveness = data.filter({ task: 'attractiveness' }).csv();
 
       /* Send data to Firebase */
       database
         .ref("Attractiveness_stereo/" + jspsych_id + "/")
         .update({ datarating })
         .then(function () {
-              console.log("Data sent!");
-              $("#jspsych-content").html(debrief);
-              //setTimeout(jsPsych.data.displayData, 5000);
-              });
- /*       
       database
         .ref("Attractiveness_stereo/" + jspsych_id + "/")
         .update({ dataattractiveness })
         .then(function () {
+              console.log("Data sent!");
+              $("#jspsych-content").html(debrief);
+              //setTimeout(jsPsych.data.displayData, 5000);
+              });
         });
-*/
+
     }
   });
 </script>
